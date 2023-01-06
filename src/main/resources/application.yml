@@ -1,0 +1,14 @@
+server:
+  error:
+    include-stacktrace: on-param
+  port: 8080
+spring:
+  application:
+    name: thymeleaf-alura
+  datasource:
+    url: jdbc:mysql://localhost:3306/thymeleafAlura?createDatabaseIfNotExist=true
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update

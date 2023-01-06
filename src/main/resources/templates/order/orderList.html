@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{base :: base-head('Lista de pedidos')}"></head>
+<body>
+    <div class="menu-container">
+        <div th:replace="~{nav :: menu}"></div>
+        <div class="screen">
+            <div class="container-th">
+                <div class="ui link cards">
+                    <div class="card" th:each="order : ${orders}">
+                        <div class="image">
+                            <img class="card-image" th:src="${order.imageUrl}">
+                        </div>
+                        <div class="content">
+                            <div class="header" th:text="${order.name}"></div>
+                            <div class="description" th:text="${order.description}"></div>
+                            <div th:text="${#temporals.format(order.arriveDate, 'dd/MM/yyyy HH:mm')}"></div>
+                            <div>
+                                <a th:href="${order.productUrl}">Product url</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                          <span class="right floated">
+                            <span th:text="${order.status}"></span>
+                          </span>
+                        <span>
+                            <span th:text="${#numbers.formatCurrency(order.price)}"></span>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-order" type="button" onclick="navigate('order/new')">
+                    <i class="plus icon"></i>
+                    Add a new order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script th:replace="~{base :: base-script}"></script>
+</body>
+</html>

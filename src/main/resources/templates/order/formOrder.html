@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{base :: base-head('Formulário de pedidos')}"></head>
+<body>
+    <div class="menu-container">
+        <div th:replace="~{nav :: menu}"></div>
+        <div class="screen">
+            <div class="container-th">
+                <form th:object="${orderDto}" class="ui form" method="post" action="/order">
+                    <h2>Create new order</h2>
+                    <hr/>
+
+                    <div class="field">
+                        <label>Name</label>
+                        <input th:field="*{name}" class="ui input" th:errorclass="is-invalid" type="text" placeholder="Samsung Laptop">
+                        <div class="ui pointing red basic label" th:errors="*{name}"></div>
+                    </div>
+
+                    <div class="field">
+                        <label>Description</label>
+                        <input th:field="*{description}" class="ui input" th:errorclass="is-invalid" type="text" placeholder="Ssd 250, Core i5...">
+                        <div class="ui pointing red basic label" th:errors="*{description}"></div>
+                    </div>
+
+                    <div class="field">
+                        <label>Price</label>
+                        <input th:field="*{price}" class="ui input" th:errorclass="is-invalid" type="number" placeholder="$3200.99" min="0">
+                        <div class="ui pointing red basic label" th:errors="*{price}"></div>
+                    </div>
+
+                    <div class="field">
+                        <label>Status</label>
+                        <select th:field="*{status}" class="ui input" name="status">
+                            <option value="1">Pending</option>
+                            <option value="2">In progress</option>
+                            <option value="3">Finished</option>
+                        </select>
+                        <div class="ui pointing red basic label" th:errors="*{status}"></div>
+                    </div>
+
+                    <div class="field">
+                        <label>Arrive date</label>
+                        <input th:field="*{arriveDate}" class="ui input" th:errorclass="is-invalid" type="datetime-local" placeholder="Arrive Date">
+                        <div class="ui pointing red basic label" th:errors="*{arriveDate}"></div>
+                    </div>
+
+                    <div class="field">
+                        <label>Product Url</label>
+                        <input th:field="*{productUrl}" class="ui input" th:errorclass="is-invalid" type="text" placeholder="https://example.com/imageurl">
+                        <div class="ui pointing red basic label" th:errors="*{productUrl}"></div>
+                    </div>
+
+                    <div class="field">
+                        <label>Image Url</label>
+                        <input th:field="*{imageUrl}" class="ui input" th:errorclass="is-invalid" type="text" placeholder="https://example.com/producturl">
+                        <div class="ui pointing red basic label" th:errors="*{imageUrl}"></div>
+                    </div>
+
+                    <div class="ui buttons form-button-section">
+                        <button type="button" class="ui button" onclick="navigate('order')">Cancel</button>
+                        <div class="or"></div>
+                        <button type="submit" class="ui positive button">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script th:replace="~{base :: base-script}"></script>
+</body>
+</html>
