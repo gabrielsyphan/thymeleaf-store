@@ -117,6 +117,7 @@ span {
 }
 
 .add-order {
+    z-index: 9;
     position: fixed;
     border-radius: 6px;
     top: 15px;

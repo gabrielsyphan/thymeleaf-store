@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head th:replace="~{base :: base-head('Formulário de pedidos')}"></head>
+    <body>
+        <div class="menu-container">
+            <div th:replace="~{nav :: menu}"></div>
+            <div class="screen">
+                <div class="container-th">
+                    <div class="ui cards">
+                        <div class="ui card" th:each="notification : ${notifications}">
+                            <div class="content">
+                                <div class="center aligned header" th:text="${notification.title}"></div>
+                                <div class="center aligned description">
+                                    <p th:text="${notification.description}"></p>
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <div class="center aligned author" th:text="${#temporals.format(notification.date, 'dd/MM/yyyy HH:mm')}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script th:replace="~{base :: base-script}"></script>
+    </body>
+</html>

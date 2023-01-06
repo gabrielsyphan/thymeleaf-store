@@ -21,7 +21,7 @@
             <span>Orders</span>
         </div>
 
-        <div class="menu-box">
+        <div class="menu-box" th:classappend="${route} == 'notifications' ? 'active'" onclick="navigate('notifications')">
             <i class="bell icon"></i>
             <span>Notifications</span>
         </div>

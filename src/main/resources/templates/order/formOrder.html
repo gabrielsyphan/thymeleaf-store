@@ -24,7 +24,7 @@
 
                     <div class="field">
                         <label>Price</label>
-                        <input th:field="*{price}" class="ui input" th:errorclass="is-invalid" type="number" placeholder="$3200.99" min="0">
+                        <input th:field="*{price}" class="ui input" th:errorclass="is-invalid" type="number" placeholder="$3200.99" min="0" step=".01">
                         <div class="ui pointing red basic label" th:errors="*{price}"></div>
                     </div>
 

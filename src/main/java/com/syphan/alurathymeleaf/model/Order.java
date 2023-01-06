@@ -1,5 +1,6 @@
 package com.syphan.alurathymeleaf.model;
 
+import com.syphan.alurathymeleaf.dto.OrderDto;
 import com.syphan.alurathymeleaf.model.enumerations.Status;
 import jakarta.persistence.*;
 
@@ -103,5 +104,16 @@ public class Order {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public static Order dtoToOrder(OrderDto orderDto) {
+        Order order = new Order();
+        order.setName(orderDto.getName());
+        order.setDescription(orderDto.getDescription());
+        order.setPrice(orderDto.getPrice());
+        order.setImageUrl(orderDto.getImageUrl());
+        order.setProductUrl(orderDto.getProductUrl());
+        order.setArriveDate(orderDto.getArriveDate());
+        return order;
     }
 }

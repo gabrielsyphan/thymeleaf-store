@@ -1,8 +1,10 @@
 package com.syphan.alurathymeleaf.controller;
 ;
 import com.syphan.alurathymeleaf.dto.OrderDto;
+import com.syphan.alurathymeleaf.model.Notification;
 import com.syphan.alurathymeleaf.model.Order;
 import com.syphan.alurathymeleaf.model.enumerations.Status;
+import com.syphan.alurathymeleaf.repository.NotificationRepository;
 import com.syphan.alurathymeleaf.repository.OrderRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -14,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/order")
@@ -22,12 +24,15 @@ public class OrderController {
 
     private final OrderRepository orderRepository;
 
+    private final NotificationRepository notificationRepository;
+
     @PersistenceContext
     private final EntityManager entityManager;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository, EntityManager entityManager) {
+    public OrderController(OrderRepository orderRepository, NotificationRepository notificationRepository, EntityManager entityManager) {
         this.orderRepository = orderRepository;
+        this.notificationRepository = notificationRepository;
         this.entityManager = entityManager;
     }
 
@@ -70,17 +75,17 @@ public class OrderController {
         }
 
         model.addAttribute("route", "order");
-        Status status = Status.getById(orderDto.getStatus());
 
-        Order order = new Order();
-        order.setName(orderDto.getName());
-        order.setDescription(orderDto.getDescription());
-        order.setPrice(orderDto.getPrice());
-        order.setImageUrl(orderDto.getImageUrl());
-        order.setProductUrl(orderDto.getProductUrl());
-        order.setArriveDate(orderDto.getArriveDate());
-        order.setStatus(status);
+        Order order = Order.dtoToOrder(orderDto);
+        order.setStatus(Status.getById(orderDto.getStatus()));
         this.orderRepository.save(order);
+
+        Notification notification = new Notification(
+                "A new order has been created",
+                "Order " + order.getName() + " has been created",
+                LocalDateTime.now()
+        );
+        this.notificationRepository.save(notification);
 
         return "redirect:/order";
     }
